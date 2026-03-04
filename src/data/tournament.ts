@@ -37,39 +37,39 @@ export interface KnockoutMatch {
 }
 
 export const teams: Record<string, Team> = {
-  BRA: { name: "Luan Krein", flag: "🇧🇷", short: "BRA" },
-  ARG: { name: "Luan Pedroso", flag: "🇦🇷", short: "ARG" },
-  FRA: { name: "Chrystian Silva", flag: "🇫🇷", short: "FRA" },
-  ALE: { name: "Matheus Rossato", flag: "🇩🇪", short: "ALE" },
-  ING: { name: "Lucas Ruviaro", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", short: "ING" },
-  ESP: { name: "Léo Ruviaro", flag: "🇪🇸", short: "ESP" },
-  ITA: { name: "Henrique Binotto", flag: "🇮🇹", short: "ITA" },
+  KREIN: { name: "Luan Krein", flag: "🇧🇷", short: "KREIN" },
+  LUAN: { name: "Luan Pedroso", flag: "🇦🇷", short: "LUAN" },
+  CHRYS: { name: "Chrystian Silva", flag: "🇫🇷", short: "CHRYS" },
+  ROS: { name: "Matheus Rossato", flag: "🇩🇪", short: "ROS" },
+  LUCAS: { name: "Lucas Ruviaro", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", short: "LUCAS" },
+  LEO: { name: "Léo Ruviaro", flag: "🇪🇸", short: "LEO" },
+  BIN: { name: "Henrique Binotto", flag: "🇮🇹", short: "BIN" },
   POR: { name: "Jogador 8", flag: "🇵🇹", short: "POR" },
 };
 
 export const groupA = {
   name: "Grupo A",
-  teams: ["BRA", "FRA", "ING", "ITA"],
+  teams: ["KREIN", "CHRYS", "LUCAS", "BIN"],
   matches: [
-    { home: "BRA", away: "ITA", homeScore: null, awayScore: null, played: false },
-    { home: "FRA", away: "ING", homeScore: null, awayScore: null, played: false },
-    { home: "BRA", away: "FRA", homeScore: null, awayScore: null, played: false },
-    { home: "ING", away: "ITA", homeScore: null, awayScore: null, played: false },
-    { home: "BRA", away: "ING", homeScore: null, awayScore: null, played: false },
-    { home: "ITA", away: "FRA", homeScore: null, awayScore: null, played: false },
+    { home: "KREIN", away: "BIN", homeScore: null, awayScore: null, played: false },
+    { home: "CHRYS", away: "LUCAS", homeScore: null, awayScore: null, played: false },
+    { home: "KREIN", away: "CHRYS", homeScore: null, awayScore: null, played: false },
+    { home: "LUCAS", away: "BIN", homeScore: null, awayScore: null, played: false },
+    { home: "KREIN", away: "LUCAS", homeScore: null, awayScore: null, played: false },
+    { home: "BIN", away: "CHRYS", homeScore: null, awayScore: null, played: false },
   ] as GroupMatch[],
 };
 
 export const groupB = {
   name: "Grupo B",
-  teams: ["ARG", "ALE", "ESP", "POR"],
+  teams: ["LUAN", "ROS", "LEO", "POR"],
   matches: [
-    { home: "ARG", away: "POR", homeScore: null, awayScore: null, played: false },
-    { home: "ALE", away: "ESP", homeScore: null, awayScore: null, played: false },
-    { home: "ARG", away: "ALE", homeScore: null, awayScore: null, played: false },
-    { home: "ESP", away: "POR", homeScore: null, awayScore: null, played: false },
-    { home: "ARG", away: "ESP", homeScore: null, awayScore: null, played: false },
-    { home: "POR", away: "ALE", homeScore: null, awayScore: null, played: false },
+    { home: "LUAN", away: "POR", homeScore: null, awayScore: null, played: false },
+    { home: "ROS", away: "LEO", homeScore: null, awayScore: null, played: false },
+    { home: "LUAN", away: "ROS", homeScore: null, awayScore: null, played: false },
+    { home: "LEO", away: "POR", homeScore: null, awayScore: null, played: false },
+    { home: "LUAN", away: "LEO", homeScore: null, awayScore: null, played: false },
+    { home: "POR", away: "ROS", homeScore: null, awayScore: null, played: false },
   ] as GroupMatch[],
 };
 
