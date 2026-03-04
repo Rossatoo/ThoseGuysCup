@@ -1,0 +1,288 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import GroupTable from "../components/GroupTable.astro";
+import GroupMatches from "../components/GroupMatches.astro";
+import Bracket from "../components/Bracket.astro";
+import {
+  groupA,
+  groupB,
+  calculateStandings,
+} from "../data/tournament";
+
+const standingsA = calculateStandings(groupA.teams, groupA.matches);
+const standingsB = calculateStandings(groupB.teams, groupB.matches);
+---
+
+<Layout title="Those Guys CUP">
+  <Header />
+
+  <main class="main-content">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-badge">TORNEIO ONLINE</div>
+        <h1 class="font-display hero-title">COPA<br /> <span class="hero-year">AQUELES CARAS</span></h1>
+        <p class="hero-subtitle">
+          8 times. 2 grupos. 1 campeao.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value font-display">8</span>
+            <span class="stat-label">Times</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value font-display">2</span>
+            <span class="stat-label">Grupos</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value font-display">15</span>
+            <span class="stat-label">Jogos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Group Stage -->
+    <section id="grupos" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-line"></div>
+          <h2 class="font-display section-title">FASE DE GRUPOS</h2>
+          <p class="section-desc">Classificacao dos 2 grupos com 4 times cada</p>
+        </div>
+
+        <div class="groups-grid">
+          <GroupTable groupName={groupA.name} standings={standingsA} />
+          <GroupTable groupName={groupB.name} standings={standingsB} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Matches -->
+    <section id="jogos" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-line"></div>
+          <h2 class="font-display section-title">JOGOS</h2>
+          <p class="section-desc">Todos os confrontos da fase de grupos</p>
+        </div>
+
+        <div class="groups-grid">
+          <GroupMatches groupName={groupA.name} matches={groupA.matches} />
+          <GroupMatches groupName={groupB.name} matches={groupB.matches} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Knockout -->
+    <section id="mata-mata" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <div class="section-line"></div>
+          <h2 class="font-display section-title">MATA-MATA</h2>
+          <p class="section-desc">Semi finais e grande final do torneio</p>
+        </div>
+
+        <Bracket />
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-text">Copa Aqueles Cara FIFA</span>
+        <span class="footer-divider">|</span>
+        <span class="footer-text">Desenvolvido por Matheus Rossato. Todos os direitos Reservados</span>
+      </div>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  .main-content {
+    min-height: 100vh;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 4rem 1.5rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(212, 168, 67, 0.04) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: "Oswald", sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    color: var(--accent-gold);
+    background-color: rgba(212, 168, 67, 0.08);
+    border: 1px solid rgba(212, 168, 67, 0.2);
+    padding: 0.375rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .hero-year {
+    color: var(--accent-gold);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 32px;
+    background-color: var(--border-color);
+  }
+
+  /* Sections */
+  .section {
+    padding: 3rem 1.5rem;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-line {
+    width: 40px;
+    height: 2px;
+    background-color: var(--accent-gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+    margin-bottom: 0.375rem;
+  }
+
+  .section-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .footer-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .footer-divider {
+    color: var(--border-color);
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .groups-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+      gap: 1.25rem;
+    }
+  }
+</style>

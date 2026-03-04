@@ -1,0 +1,312 @@
+---
+import type { KnockoutMatch } from "../data/tournament";
+import { teams, knockout } from "../data/tournament";
+
+const semiFinal1 = knockout.find((m) => m.id === "sf1")!;
+const semiFinal2 = knockout.find((m) => m.id === "sf2")!;
+const final = knockout.find((m) => m.id === "final")!;
+
+function getTeamDisplay(code: string | null) {
+  if (!code) return { name: "A definir", short: "TBD", flag: "🏳️" };
+  const team = teams[code];
+  return { name: team.name, short: team.short, flag: team.flag };
+}
+---
+
+<div class="bracket-container">
+  <!-- Semi Finals Column -->
+  <div class="bracket-column">
+    <div class="column-header">
+      <span class="font-display column-title">SEMI FINAIS</span>
+    </div>
+
+    <div class="bracket-matches">
+      {[semiFinal1, semiFinal2].map((match) => {
+        const home = getTeamDisplay(match.home);
+        const away = getTeamDisplay(match.away);
+        return (
+          <div class="bracket-match-card">
+            <div class="bracket-match-label">{match.label}</div>
+            <div class:list={["bracket-team", { "tbd": !match.home }]}>
+              <div class="bracket-team-info">
+                <span class="bracket-flag">{home.flag}</span>
+                <span class="bracket-name">{home.name}</span>
+                <span class="bracket-short">{home.short}</span>
+              </div>
+              <div class="bracket-team-score">
+                {match.played ? match.homeScore : "-"}
+              </div>
+            </div>
+            <div class="bracket-divider" />
+            <div class:list={["bracket-team", { "tbd": !match.away }]}>
+              <div class="bracket-team-info">
+                <span class="bracket-flag">{away.flag}</span>
+                <span class="bracket-name">{away.name}</span>
+                <span class="bracket-short">{away.short}</span>
+              </div>
+              <div class="bracket-team-score">
+                {match.played ? match.awayScore : "-"}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Connector -->
+  <div class="bracket-connector">
+    <div class="connector-line top-line" />
+    <div class="connector-line bot-line" />
+    <div class="connector-center" />
+  </div>
+
+  <!-- Final Column -->
+  <div class="bracket-column final-column">
+    <div class="column-header final-header">
+      <svg class="trophy-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+        <path d="M4 22h16" />
+        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+      </svg>
+      <span class="font-display column-title">FINAL</span>
+    </div>
+
+    <div class="bracket-matches">
+      <div class="bracket-match-card final-card">
+        <div class="bracket-match-label final-label">Grande Final</div>
+        <div class:list={["bracket-team", { "tbd": !final.home }]}>
+          <div class="bracket-team-info">
+            <span class="bracket-flag">{getTeamDisplay(final.home).flag}</span>
+            <span class="bracket-name">{getTeamDisplay(final.home).name}</span>
+            <span class="bracket-short">{getTeamDisplay(final.home).short}</span>
+          </div>
+          <div class="bracket-team-score">
+            {final.played ? final.homeScore : "-"}
+          </div>
+        </div>
+        <div class="bracket-divider final-divider" />
+        <div class:list={["bracket-team", { "tbd": !final.away }]}>
+          <div class="bracket-team-info">
+            <span class="bracket-flag">{getTeamDisplay(final.away).flag}</span>
+            <span class="bracket-name">{getTeamDisplay(final.away).name}</span>
+            <span class="bracket-short">{getTeamDisplay(final.away).short}</span>
+          </div>
+          <div class="bracket-team-score">
+            {final.played ? final.awayScore : "-"}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .bracket-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+  }
+
+  .bracket-column {
+    flex: 0 1 320px;
+  }
+
+  .final-column {
+    flex: 0 1 300px;
+  }
+
+  .column-header {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .final-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .trophy-svg {
+    color: var(--accent-gold);
+  }
+
+  .column-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+
+  .bracket-matches {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .bracket-match-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .bracket-match-card:hover {
+    border-color: var(--border-highlight);
+  }
+
+  .final-card {
+    border-color: rgba(212, 168, 67, 0.3);
+    box-shadow: 0 0 30px rgba(212, 168, 67, 0.05);
+  }
+
+  .final-card:hover {
+    border-color: rgba(212, 168, 67, 0.5);
+  }
+
+  .bracket-match-label {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem 0.25rem;
+  }
+
+  .final-label {
+    color: var(--accent-gold);
+  }
+
+  .bracket-team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.75rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .bracket-team:hover {
+    background-color: var(--bg-card-hover);
+  }
+
+  .bracket-team.tbd {
+    opacity: 0.4;
+  }
+
+  .bracket-team-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .bracket-flag {
+    font-size: 1.125rem;
+  }
+
+  .bracket-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .bracket-short {
+    display: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .bracket-team-score {
+    font-family: "Oswald", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .bracket-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0 0.75rem;
+  }
+
+  .final-divider {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 168, 67, 0.3),
+      transparent
+    );
+  }
+
+  .bracket-connector {
+    width: 48px;
+    position: relative;
+    height: 200px;
+    flex-shrink: 0;
+  }
+
+  .connector-line {
+    position: absolute;
+    width: 24px;
+    right: 0;
+    border-right: 2px solid var(--border-color);
+  }
+
+  .top-line {
+    top: 25%;
+    height: 25%;
+    border-top: 2px solid var(--border-color);
+    border-top-right-radius: 6px;
+  }
+
+  .bot-line {
+    bottom: 25%;
+    height: 25%;
+    border-bottom: 2px solid var(--border-color);
+    border-bottom-right-radius: 6px;
+  }
+
+  .connector-center {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 24px;
+    height: 2px;
+    background-color: var(--border-color);
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 768px) {
+    .bracket-container {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .bracket-column,
+    .final-column {
+      flex: 1;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .bracket-connector {
+      display: none;
+    }
+
+    .bracket-name {
+      display: none;
+    }
+
+    .bracket-short {
+      display: inline;
+    }
+  }
+</style>

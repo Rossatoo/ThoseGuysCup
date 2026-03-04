@@ -1,0 +1,186 @@
+---
+import type { GroupMatch } from "../data/tournament";
+import { teams } from "../data/tournament";
+
+interface Props {
+  groupName: string;
+  matches: GroupMatch[];
+}
+
+const { groupName, matches } = Astro.props;
+
+const rounds = [
+  { label: "Rodada 1", matches: matches.slice(0, 2) },
+  { label: "Rodada 2", matches: matches.slice(2, 4) },
+  { label: "Rodada 3", matches: matches.slice(4, 6) },
+];
+---
+
+<div class="matches-card">
+  <div class="matches-header">
+    <h4 class="font-display matches-title">Jogos - {groupName}</h4>
+  </div>
+
+  <div class="rounds">
+    {rounds.map((round) => (
+      <div class="round">
+        <div class="round-label">{round.label}</div>
+        {round.matches.map((match) => {
+          const homeTeam = teams[match.home];
+          const awayTeam = teams[match.away];
+          return (
+            <div class:list={["match-row", { played: match.played }]}>
+              <div class="match-home">
+                <span class="match-team-name">{homeTeam.name}</span>
+                <span class="match-team-short">{homeTeam.short}</span>
+                <span class="match-flag">{homeTeam.flag}</span>
+              </div>
+              <div class="match-score">
+                {match.played ? (
+                  <span class="score-value">{match.homeScore} - {match.awayScore}</span>
+                ) : (
+                  <span class="score-pending">VS</span>
+                )}
+              </div>
+              <div class="match-away">
+                <span class="match-flag">{awayTeam.flag}</span>
+                <span class="match-team-name">{awayTeam.name}</span>
+                <span class="match-team-short">{awayTeam.short}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .matches-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .matches-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+  }
+
+  .matches-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .rounds {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .round {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .round-label {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .match-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+
+  .match-row:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--border-color);
+  }
+
+  .match-row.played {
+    border-color: rgba(212, 168, 67, 0.1);
+  }
+
+  .match-home {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .match-away {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .match-team-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .match-team-short {
+    display: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .match-flag {
+    font-size: 1.25rem;
+  }
+
+  .match-score {
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .score-value {
+    font-family: "Oswald", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+  }
+
+  .score-pending {
+    font-family: "Oswald", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .match-team-name {
+      display: none;
+    }
+    .match-team-short {
+      display: inline;
+    }
+  }
+</style>
