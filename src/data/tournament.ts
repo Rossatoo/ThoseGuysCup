@@ -1,6 +1,6 @@
 export interface Team {
   name: string;
-  flag: string;
+  logo: string;
   short: string;
 }
 
@@ -14,7 +14,7 @@ export interface GroupMatch {
 
 export interface GroupStanding {
   team: string;
-  flag: string;
+  logo: string;
   played: number;
   won: number;
   drawn: number;
@@ -37,14 +37,14 @@ export interface KnockoutMatch {
 }
 
 export const teams: Record<string, Team> = {
-  KREIN: { name: "Luan Krein", flag: "🇧🇷", short: "KREIN" },
-  LUAN: { name: "Luan Pedroso", flag: "🇦🇷", short: "LUAN" },
-  CHRYS: { name: "Chrystian Silva", flag: "🇫🇷", short: "CHRYS" },
-  ROS: { name: "Matheus Rossato", flag: "🇩🇪", short: "ROS" },
-  LUCAS: { name: "Lucas Ruviaro", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", short: "LUCAS" },
-  LEO: { name: "Léo Ruviaro", flag: "🇪🇸", short: "LEO" },
-  BIN: { name: "Henrique Binotto", flag: "🇮🇹", short: "BIN" },
-  POR: { name: "Jogador 8", flag: "🇵🇹", short: "POR" },
+  KREIN: { name: "Luan Krein", logo: "/teams/liverpool.png", short: "KREIN" },
+  LUAN: { name: "Luan Pedroso", logo: "/teams/real.png", short: "LUAN" },
+  CHRYS: { name: "Chrystian Silva", logo: "/teams/psg.png", short: "CHRYS" },
+  ROS: { name: "Matheus Rossato", logo: "/teams/bayern.png", short: "ROS" },
+  LUCAS: { name: "Lucas Ruviaro", logo: "/teams/chelsea.png", short: "LUCAS" },
+  LEO: { name: "Léo Ruviaro", logo: "/teams/barcelona.png", short: "LEO" },
+  BIN: { name: "Henrique Binotto", logo: "/teams/arsenal.png", short: "BIN" },
+  POR: { name: "Jogador 8", logo: "/teams/city.png", short: "POR" },
 };
 
 export const groupA = {
@@ -89,7 +89,7 @@ export function calculateStandings(
     const team = teams[code];
     standings[code] = {
       team: code,
-      flag: team.flag,
+      logo: team.logo,
       played: 0,
       won: 0,
       drawn: 0,

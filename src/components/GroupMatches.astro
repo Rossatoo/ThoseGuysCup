@@ -33,7 +33,7 @@ const rounds = [
               <div class="match-home">
                 <span class="match-team-name">{homeTeam.name}</span>
                 <span class="match-team-short">{homeTeam.short}</span>
-                <span class="match-flag">{homeTeam.flag}</span>
+                <img src={homeTeam.logo} alt={homeTeam.name} class="match-logo" />
               </div>
               <div class="match-score">
                 {match.played ? (
@@ -43,7 +43,7 @@ const rounds = [
                 )}
               </div>
               <div class="match-away">
-                <span class="match-flag">{awayTeam.flag}</span>
+                <img src={awayTeam.logo} alt={awayTeam.name} class="match-logo" />
                 <span class="match-team-name">{awayTeam.name}</span>
                 <span class="match-team-short">{awayTeam.short}</span>
               </div>
@@ -150,6 +150,12 @@ const rounds = [
   .match-flag {
     font-size: 1.25rem;
   }
+
+  .match-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
 
   .match-score {
     min-width: 60px;
