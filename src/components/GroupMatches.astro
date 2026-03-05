@@ -29,8 +29,23 @@ const rounds = [
           {round.matches.map((match) => {
             const homeTeam = teams[match.home];
             const awayTeam = teams[match.away];
+
+            const homeWins = match.games.filter((g) => g.home > g.away).length;
+            const awayWins = match.games.filter((g) => g.away > g.home).length;
             return (
               <div class:list={["match-row", { played: match.played }]}>
+                {match.played && match.games.length > 0 && (
+                  <div class="series-games">
+                    {match.games.map((game, i) => (
+                      <div class="series-game">
+                        <span>Jogo {i + 1}</span>
+                        <span>
+                          {game.home} - {game.away}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div class="match-home">
                   <span class="match-team-name">{homeTeam.name}</span>
                   <span class="match-team-short">{homeTeam.short}</span>
@@ -43,8 +58,9 @@ const rounds = [
                 <div class="match-score">
                   {match.played ? (
                     <span class="score-value">
-                      {match.games.filter((g) => g.home > g.away).length}-
-                      {match.games.filter((g) => g.away > g.home).length}
+                      <span class="score-value">
+                        {homeWins} - {awayWins}
+                      </span>
                     </span>
                   ) : (
                     <span class="score-pending">VS</span>
@@ -202,4 +218,19 @@ const rounds = [
       display: inline;
     }
   }
+
+  .series-games {
+  margin-top: 4px;
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.series-game {
+  display: flex;
+  justify-content: space-between;
+}
 </style>
