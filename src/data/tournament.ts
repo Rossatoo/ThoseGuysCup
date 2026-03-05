@@ -4,11 +4,15 @@ export interface Team {
   short: string;
 }
 
+export interface Game {
+  home: number;
+  away: number;
+}
+
 export interface GroupMatch {
   home: string;
   away: string;
-  homeScore: number | null;
-  awayScore: number | null;
+  games: Game[];
   played: boolean;
 }
 
@@ -51,12 +55,50 @@ export const groupA = {
   name: "Grupo A",
   teams: ["KREIN", "CHRYS", "LUCAS", "BIN"],
   matches: [
-    { home: "KREIN", away: "BIN", homeScore: 22, awayScore: 10, played: true },
-    { home: "CHRYS", away: "LUCAS", homeScore: 3, awayScore: 7, played: true },
-    { home: "KREIN", away: "CHRYS", homeScore: null, awayScore: null, played: false },
-    { home: "LUCAS", away: "BIN", homeScore: null, awayScore: null, played: false },
-    { home: "KREIN", away: "LUCAS", homeScore: null, awayScore: null, played: false },
-    { home: "BIN", away: "CHRYS", homeScore: null, awayScore: null, played: false },
+    {
+  home: "KREIN",
+  away: "BIN",
+  games: [
+    { home: 7, away: 5 },
+    { home: 15, away: 5 },
+    { home: 0, away: 0 }
+  ],
+  played: true
+},
+    {
+  home: "CHRYS",
+  away: "LUCAS",
+  games: [
+    { home: 2, away: 3 },
+    { home: 1, away: 4 },
+    { home: 0, away: 0 }
+  ],
+  played: true
+},
+     {
+  home: "KREIN",
+  away: "CHRYS",
+  games: [],
+  played: false
+},
+        {
+  home: "LUCAS",
+  away: "BIN",
+  games: [],
+  played: false
+},
+        {
+  home: "KREIN",
+  away: "LUCAS",
+  games: [],
+  played: false
+},
+        {
+  home: "BIN",
+  away: "CHRYS",
+  games: [],
+  played: false
+},
   ] as GroupMatch[],
 };
 
@@ -64,12 +106,42 @@ export const groupB = {
   name: "Grupo B",
   teams: ["LUAN", "ROS", "LEO", "POR"],
   matches: [
-    { home: "LUAN", away: "POR", homeScore: null, awayScore: null, played: false },
-    { home: "ROS", away: "LEO", homeScore: null, awayScore: null, played: false },
-    { home: "LUAN", away: "ROS", homeScore: null, awayScore: null, played: false },
-    { home: "LEO", away: "POR", homeScore: null, awayScore: null, played: false },
-    { home: "LUAN", away: "LEO", homeScore: null, awayScore: null, played: false },
-    { home: "POR", away: "ROS", homeScore: null, awayScore: null, played: false },
+        {
+  home: "LUAN",
+  away: "POR",
+  games: [],
+  played: false
+},
+        {
+  home: "ROS",
+  away: "LEO",
+  games: [],
+  played: false
+},
+        {
+  home: "LUAN",
+  away: "ROS",
+  games: [],
+  played: false
+},
+       {
+  home: "LEO",
+  away: "POR",
+  games: [],
+  played: false
+},
+        {
+  home: "LUAN",
+  away: "LEO",
+  games: [],
+  played: false
+},
+        {
+  home: "POR",
+  away: "ROS",
+  games: [],
+  played: false
+},
   ] as GroupMatch[],
 };
 
@@ -78,6 +150,18 @@ export const knockout: KnockoutMatch[] = [
   { id: "sf2", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
   { id: "final", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Final" },
 ];
+
+function getSeriesResult(match: GroupMatch) {
+  let homeWins = 0;
+  let awayWins = 0;
+
+  for (const game of match.games) {
+    if (game.home > game.away) homeWins++;
+    if (game.away > game.home) awayWins++;
+  }
+
+  return { homeWins, awayWins };
+}
 
 export function calculateStandings(
   teamCodes: string[],
@@ -101,33 +185,31 @@ export function calculateStandings(
   }
 
   for (const match of matches) {
-    if (!match.played || match.homeScore === null || match.awayScore === null) continue;
+  if (!match.played || match.games.length === 0) continue;
 
-    const home = standings[match.home];
-    const away = standings[match.away];
+  const home = standings[match.home];
+  const away = standings[match.away];
 
-    home.played++;
-    away.played++;
-    home.goalsFor += match.homeScore;
-    home.goalsAgainst += match.awayScore;
-    away.goalsFor += match.awayScore;
-    away.goalsAgainst += match.homeScore;
+  const { homeWins, awayWins } = getSeriesResult(match);
 
-    if (match.homeScore > match.awayScore) {
-      home.won++;
-      home.points += 3;
-      away.lost++;
-    } else if (match.homeScore < match.awayScore) {
-      away.won++;
-      away.points += 3;
-      home.lost++;
-    } else {
-      home.drawn++;
-      away.drawn++;
-      home.points += 1;
-      away.points += 1;
-    }
+  home.played++;
+  away.played++;
+
+  home.goalsFor += homeWins;
+  home.goalsAgainst += awayWins;
+  away.goalsFor += awayWins;
+  away.goalsAgainst += homeWins;
+
+  if (homeWins > awayWins) {
+    home.won++;
+    home.points += 3;
+    away.lost++;
+  } else if (awayWins > homeWins) {
+    away.won++;
+    away.points += 3;
+    home.lost++;
   }
+}
 
   return Object.values(standings).sort((a, b) => {
     if (b.points !== a.points) return b.points - a.points;

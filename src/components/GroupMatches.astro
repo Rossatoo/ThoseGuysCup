@@ -22,36 +22,49 @@ const rounds = [
   </div>
 
   <div class="rounds">
-    {rounds.map((round) => (
-      <div class="round">
-        <div class="round-label">{round.label}</div>
-        {round.matches.map((match) => {
-          const homeTeam = teams[match.home];
-          const awayTeam = teams[match.away];
-          return (
-            <div class:list={["match-row", { played: match.played }]}>
-              <div class="match-home">
-                <span class="match-team-name">{homeTeam.name}</span>
-                <span class="match-team-short">{homeTeam.short}</span>
-                <img src={homeTeam.logo} alt={homeTeam.name} class="match-logo" />
+    {
+      rounds.map((round) => (
+        <div class="round">
+          <div class="round-label">{round.label}</div>
+          {round.matches.map((match) => {
+            const homeTeam = teams[match.home];
+            const awayTeam = teams[match.away];
+            return (
+              <div class:list={["match-row", { played: match.played }]}>
+                <div class="match-home">
+                  <span class="match-team-name">{homeTeam.name}</span>
+                  <span class="match-team-short">{homeTeam.short}</span>
+                  <img
+                    src={homeTeam.logo}
+                    alt={homeTeam.name}
+                    class="match-logo"
+                  />
+                </div>
+                <div class="match-score">
+                  {match.played ? (
+                    <span class="score-value">
+                      {match.games.filter((g) => g.home > g.away).length}-
+                      {match.games.filter((g) => g.away > g.home).length}
+                    </span>
+                  ) : (
+                    <span class="score-pending">VS</span>
+                  )}
+                </div>
+                <div class="match-away">
+                  <img
+                    src={awayTeam.logo}
+                    alt={awayTeam.name}
+                    class="match-logo"
+                  />
+                  <span class="match-team-name">{awayTeam.name}</span>
+                  <span class="match-team-short">{awayTeam.short}</span>
+                </div>
               </div>
-              <div class="match-score">
-                {match.played ? (
-                  <span class="score-value">{match.homeScore} - {match.awayScore}</span>
-                ) : (
-                  <span class="score-pending">VS</span>
-                )}
-              </div>
-              <div class="match-away">
-                <img src={awayTeam.logo} alt={awayTeam.name} class="match-logo" />
-                <span class="match-team-name">{awayTeam.name}</span>
-                <span class="match-team-short">{awayTeam.short}</span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    ))}
+            );
+          })}
+        </div>
+      ))
+    }
   </div>
 </div>
 
@@ -152,10 +165,10 @@ const rounds = [
   }
 
   .match-logo {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-}
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
 
   .match-score {
     min-width: 60px;
