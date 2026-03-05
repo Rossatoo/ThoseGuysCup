@@ -22,65 +22,60 @@ const rounds = [
   </div>
 
   <div class="rounds">
-    {
-      rounds.map((round) => (
-        <div class="round">
-          <div class="round-label">{round.label}</div>
-          {round.matches.map((match) => {
-            const homeTeam = teams[match.home];
-            const awayTeam = teams[match.away];
+    {rounds.map((round) => (
+      <div class="round">
+        <div class="round-label">{round.label}</div>
 
-            const homeWins = match.games.filter((g) => g.home > g.away).length;
-            const awayWins = match.games.filter((g) => g.away > g.home).length;
-            return (
+        {round.matches.map((match) => {
+          const homeTeam = teams[match.home];
+          const awayTeam = teams[match.away];
+
+          const homeWins = match.games?.filter((g) => g.home > g.away).length ?? 0;
+          const awayWins = match.games?.filter((g) => g.away > g.home).length ?? 0;
+
+          return (
+            <div class="match-wrapper">
+
               <div class:list={["match-row", { played: match.played }]}>
-                {match.played && match.games.length > 0 && (
-                  <div class="series-games">
-                    {match.games.map((game, i) => (
-                      <div class="series-game">
-                        <span>Jogo {i + 1}</span>
-                        <span>
-                          {game.home} - {game.away}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+
                 <div class="match-home">
                   <span class="match-team-name">{homeTeam.name}</span>
                   <span class="match-team-short">{homeTeam.short}</span>
-                  <img
-                    src={homeTeam.logo}
-                    alt={homeTeam.name}
-                    class="match-logo"
-                  />
+                  <img src={homeTeam.logo} alt={homeTeam.name} class="match-logo" />
                 </div>
+
                 <div class="match-score">
                   {match.played ? (
-                    <span class="score-value">
-                      <span class="score-value">
-                        {homeWins} - {awayWins}
-                      </span>
-                    </span>
+                    <span class="score-value">{homeWins} - {awayWins}</span>
                   ) : (
                     <span class="score-pending">VS</span>
                   )}
                 </div>
+
                 <div class="match-away">
-                  <img
-                    src={awayTeam.logo}
-                    alt={awayTeam.name}
-                    class="match-logo"
-                  />
+                  <img src={awayTeam.logo} alt={awayTeam.name} class="match-logo" />
                   <span class="match-team-name">{awayTeam.name}</span>
                   <span class="match-team-short">{awayTeam.short}</span>
                 </div>
+
               </div>
-            );
-          })}
-        </div>
-      ))
-    }
+
+              {match.played && match.games && match.games.length > 0 && (
+                <div class="series-games">
+                  {match.games.map((game, i) => (
+                    <div class="series-game">
+                      <span>Jogo {i + 1}</span>
+                      <span>{game.home} - {game.away}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            </div>
+          );
+        })}
+      </div>
+    ))}
   </div>
 </div>
 
@@ -127,6 +122,12 @@ const rounds = [
     color: var(--text-muted);
     text-transform: uppercase;
     padding: 0.25rem 0.5rem;
+  }
+
+  .match-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .match-row {
@@ -176,10 +177,6 @@ const rounds = [
     color: var(--text-primary);
   }
 
-  .match-flag {
-    font-size: 1.25rem;
-  }
-
   .match-logo {
     width: 20px;
     height: 20px;
@@ -210,27 +207,30 @@ const rounds = [
     border-radius: 4px;
   }
 
+  .series-games {
+    margin-left: 10px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .series-game {
+    display: flex;
+    justify-content: space-between;
+  }
+
   @media (max-width: 640px) {
     .match-team-name {
       display: none;
     }
+
     .match-team-short {
       display: inline;
     }
   }
-
-  .series-games {
-  margin-top: 4px;
-  padding-left: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.series-game {
-  display: flex;
-  justify-content: space-between;
-}
 </style>
