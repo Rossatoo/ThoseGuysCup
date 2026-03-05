@@ -98,8 +98,12 @@ export const groupA = {
         {
   home: "KREIN",
   away: "LUCAS",
-  games: [],
-  played: false
+  games: [
+    { home: 8, away: 10 },
+    { home: 0, away: 0 },
+    { home: 0, away: 0 }
+  ],
+  played: true
 },
         {
   home: "BIN",
