@@ -162,8 +162,8 @@ export const groupB = {
 };
 
 export const knockout: KnockoutMatch[] = [
-  { id: "sf1", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 1" },
-  { id: "sf2", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
+  { id: "sf1", home: "LUAN", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 1" },
+  { id: "sf2", home: "LUCAS", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
   { id: "final", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Final" },
 ];
 
