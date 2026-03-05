@@ -113,7 +113,7 @@ export const groupA = {
     { home: 1, away: 1 },
     { home: 2, away: 3 }
   ],
-  played: false
+  played: true
 },
   ] as GroupMatch[],
 };
