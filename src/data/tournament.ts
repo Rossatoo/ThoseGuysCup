@@ -52,7 +52,7 @@ export const groupA = {
   teams: ["KREIN", "CHRYS", "LUCAS", "BIN"],
   matches: [
     { home: "KREIN", away: "BIN", homeScore: 7, awayScore: 5, played: true },
-    { home: "CHRYS", away: "LUCAS", homeScore: null, awayScore: null, played: false },
+    { home: "CHRYS", away: "LUCAS", homeScore: 2, awayScore: 3, played: true },
     { home: "KREIN", away: "CHRYS", homeScore: null, awayScore: null, played: false },
     { home: "LUCAS", away: "BIN", homeScore: null, awayScore: null, played: false },
     { home: "KREIN", away: "LUCAS", homeScore: null, awayScore: null, played: false },
