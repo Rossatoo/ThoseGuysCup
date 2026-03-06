@@ -49,7 +49,7 @@ export const teams: Record<string, Team> = {
   LUCAS: { name: "Lucas Ruviaro", logo: "/teams/chelsea.png", short: "LUCAS" },
   LEO: { name: "Léo Ruviaro", logo: "/teams/barcelona.png", short: "LEO" },
   BIN: { name: "Henrique Binotto", logo: "/teams/arsenal.png", short: "BIN" },
-  POR: { name: "Irmão do Krein", logo: "/teams/city.png", short: "IRM" },
+  POR: { name: "Irmão do Krein", logo: "/teams/city.png", short: "IRMAO" },
 };
 
 export const groupA = {
@@ -121,11 +121,11 @@ export const groupA = {
 
 export const groupB = {
   name: "Grupo B",
-  teams: ["LUAN", "ROS", "LEO", "IRM"],
+  teams: ["LUAN", "ROS", "LEO", "IRMAO"],
   matches: [
         {
   home: "LUAN",
-  away: "IRM",
+  away: "IRMAO",
   games: [],
   played: false
 },
@@ -143,7 +143,7 @@ export const groupB = {
 },
        {
   home: "LEO",
-  away: "IRM",
+  away: "IRMAO",
   games: [],
   played: false
 },
@@ -158,7 +158,7 @@ export const groupB = {
   played: true
 },
         {
-  home: "IRM",
+  home: "IRMAO",
   away: "ROS",
   games: [],
   played: false
