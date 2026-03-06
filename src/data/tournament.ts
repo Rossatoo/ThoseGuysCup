@@ -49,7 +49,7 @@ export const teams: Record<string, Team> = {
   LUCAS: { name: "Lucas Ruviaro", logo: "/teams/chelsea.png", short: "LUCAS" },
   LEO: { name: "Léo Ruviaro", logo: "/teams/barcelona.png", short: "LEO" },
   BIN: { name: "Henrique Binotto", logo: "/teams/arsenal.png", short: "BIN" },
-  POR: { name: "Jogador 8", logo: "/teams/city.png", short: "POR" },
+  POR: { name: "Irmão do Krein", logo: "/teams/city.png", short: "IRM" },
 };
 
 export const groupA = {
@@ -121,11 +121,11 @@ export const groupA = {
 
 export const groupB = {
   name: "Grupo B",
-  teams: ["LUAN", "ROS", "LEO", "POR"],
+  teams: ["LUAN", "ROS", "LEO", "IRM"],
   matches: [
         {
   home: "LUAN",
-  away: "POR",
+  away: "IRM",
   games: [],
   played: false
 },
@@ -143,7 +143,7 @@ export const groupB = {
 },
        {
   home: "LEO",
-  away: "POR",
+  away: "IRM",
   games: [],
   played: false
 },
@@ -158,7 +158,7 @@ export const groupB = {
   played: true
 },
         {
-  home: "POR",
+  home: "IRM",
   away: "ROS",
   games: [],
   played: false
@@ -168,7 +168,7 @@ export const groupB = {
 
 export const knockout: KnockoutMatch[] = [
   { id: "sf1", home: "KREIN", logo: "/teams/liverpool.png", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 1" },
-  { id: "sf2", home: "LUCAS", logo: "/teams/chelsea.png", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
+  { id: "sf2", home: "BIN", logo: "/teams/chelsea.png", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
   { id: "final", home: null, logo: "/teams/liverpool.png", away: null, homeScore: null, awayScore: null, played: false, label: "Final" },
 ];
 
