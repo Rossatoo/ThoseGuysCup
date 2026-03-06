@@ -100,9 +100,9 @@ export const groupA = {
   home: "KREIN",
   away: "LUCAS",
   games: [
-    { home: 1, away: 1 },
     { home: 8, away: 10 },
-    { home: 0, away: 0 }
+    { home: 8, away: 2 },
+    { home: 12, away: 7 }
   ],
   played: true
 },
@@ -110,9 +110,9 @@ export const groupA = {
   home: "BIN",
   away: "CHRYS",
   games: [
-    { home: 3, away: 4 },
-    { home: 1, away: 1 },
-    { home: 2, away: 3 }
+    { home: 4, away: 3 },
+    { home: 3, away: 2 },
+    { home: 0, away: 0 }
   ],
   played: true
 },
@@ -150,8 +150,12 @@ export const groupB = {
         {
   home: "LUAN",
   away: "LEO",
-  games: [],
-  played: false
+  games: [
+    { home: 0, away: 4 },
+    { home: 2, away: 4 },
+    { home: 0, away: 0 }
+  ],
+  played: true
 },
         {
   home: "POR",
