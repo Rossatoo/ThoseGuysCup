@@ -98,14 +98,22 @@ export const groupA = {
         {
   home: "KREIN",
   away: "LUCAS",
-  games: [],
-  played: false
+  games: [
+    { home: 8, away: 10 },
+    { home: 8, away: 2 },
+    { home: 11, away: 1 }
+  ],
+  played: true
 },
         {
   home: "BIN",
   away: "CHRYS",
-  games: [],
-  played: false
+  games: [
+    { home: 3, away: 2 },
+    { home: 4, away: 3 },
+    { home: 0, away: 0 }
+  ],
+  played: true
 },
   ] as GroupMatch[],
 };
@@ -123,8 +131,12 @@ export const groupB = {
         {
   home: "ROS",
   away: "LEO",
-  games: [],
-  played: false
+  games: [
+    { home: 4, away: 5 },
+    { home: 3, away: 4 },
+    { home: 0, away: 0 }
+  ],
+  played: true
 },
         {
   home: "LUAN",
@@ -141,8 +153,12 @@ export const groupB = {
         {
   home: "LUAN",
   away: "LEO",
-  games: [],
-  played: false
+  games: [
+    { home: 0, away: 4 },
+    { home: 2, away: 4 },
+    { home: 0, away: 0 }
+  ],
+  played: true
 },
         {
   home: "POR",
