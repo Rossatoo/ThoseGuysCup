@@ -30,6 +30,7 @@ export interface GroupStanding {
 
 export interface KnockoutMatch {
   id: string;
+  logo: string;
   home: string | null;
   away: string | null;
   homeScore: number | null;
@@ -48,7 +49,7 @@ export const teams: Record<string, Team> = {
   LUCAS: { name: "Lucas Ruviaro", logo: "/teams/chelsea.png", short: "LUCAS" },
   LEO: { name: "Léo Ruviaro", logo: "/teams/barcelona.png", short: "LEO" },
   BIN: { name: "Henrique Binotto", logo: "/teams/arsenal.png", short: "BIN" },
-  POR: { name: "Jogador 8", logo: "/teams/city.png", short: "POR" },
+  POR: { name: "Irmão do Krein", logo: "/teams/city.png", short: "IRMAO" },
 };
 
 export const groupA = {
@@ -81,7 +82,7 @@ export const groupA = {
   games: [
     { home: 3, away: 4 },
     { home: 4, away: 2 },
-    { home: 0, away: 0 }
+    { home: 11, away: 1 }
   ],
   played: true
 },
@@ -98,45 +99,33 @@ export const groupA = {
         {
   home: "KREIN",
   away: "LUCAS",
-  games: [
-    { home: 8, away: 10 },
-    { home: 8, away: 2 },
-    { home: 11, away: 1 }
-  ],
-  played: true
+  games: [],
+  played: false
 },
         {
   home: "BIN",
   away: "CHRYS",
-  games: [
-    { home: 3, away: 2 },
-    { home: 4, away: 3 },
-    { home: 0, away: 0 }
-  ],
-  played: true
+  games: [],
+  played: false
 },
   ] as GroupMatch[],
 };
 
 export const groupB = {
   name: "Grupo B",
-  teams: ["LUAN", "ROS", "LEO", "POR"],
+  teams: ["LUAN", "ROS", "LEO", "IRMAO"],
   matches: [
         {
   home: "LUAN",
-  away: "POR",
+  away: "IRMAO",
   games: [],
   played: false
 },
         {
   home: "ROS",
   away: "LEO",
-  games: [
-    { home: 4, away: 5 },
-    { home: 3, away: 4 },
-    { home: 0, away: 0 }
-  ],
-  played: true
+  games: [],
+  played: false
 },
         {
   home: "LUAN",
@@ -146,22 +135,18 @@ export const groupB = {
 },
        {
   home: "LEO",
-  away: "POR",
+  away: "IRMAO",
   games: [],
   played: false
 },
         {
   home: "LUAN",
   away: "LEO",
-  games: [
-    { home: 0, away: 4 },
-    { home: 2, away: 4 },
-    { home: 0, away: 0 }
-  ],
-  played: true
+  games: [],
+  played: false
 },
         {
-  home: "POR",
+  home: "IRMAO",
   away: "ROS",
   games: [],
   played: false
@@ -170,9 +155,9 @@ export const groupB = {
 };
 
 export const knockout: KnockoutMatch[] = [
-  { id: "sf1", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 1" },
-  { id: "sf2", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
-  { id: "final", home: null, away: null, homeScore: null, awayScore: null, played: false, label: "Final" },
+  { id: "sf1", home: "KREIN", logo: "/teams/liverpool.png", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 1" },
+  { id: "sf2", home: "BIN", logo: "/teams/chelsea.png", away: null, homeScore: null, awayScore: null, played: false, label: "Semi Final 2" },
+  { id: "final", home: null, logo: "/teams/liverpool.png", away: null, homeScore: null, awayScore: null, played: false, label: "Final" },
 ];
 
 function getSeriesResult(match: GroupMatch) {
