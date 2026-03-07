@@ -159,7 +159,7 @@ export const groupB = {
     { home: 2, away: 4 },
     { home: 0, away: 0 }
   ],
-  played: true
+  played: true //sasda
 },
         {
   home: "IRMAO",
