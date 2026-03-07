@@ -132,7 +132,11 @@ export const groupB = {
         {
   home: "ROS",
   away: "LEO",
-  games: [],
+  games: [
+    { home: 4, away: 5 },
+    { home: 3, away: 4 },
+    { home: 0, away: 0 }
+  ],
   played: false
 },
         {
